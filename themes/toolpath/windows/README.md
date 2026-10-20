@@ -11,7 +11,7 @@ elevated) PowerShell; winget asks for elevation itself when a package
 install needs it.
 
 ```powershell
-git clone https://github.com/jeffreyclegg/livery $HOME\src\livery
+git clone https://github.com/warriorcatlodge/livery $HOME\src\livery
 cd $HOME\src\livery\themes\toolpath\windows
 winget configure show -f configuration.dsc.yaml   # read what it will do
 winget configure -f configuration.dsc.yaml

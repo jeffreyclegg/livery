@@ -2,7 +2,7 @@
 
 Jeff's themes and the platform customizations that install them. The
 artifact side (CSS tokens, specimen pages, the theming skill) stays in
-`jeffreyclegg/skills`; this repo holds everything that lands on a machine.
+`warriorcatlodge/skills`; this repo holds everything that lands on a machine.
 
 | Theme | Mac (nix) | Windows | Omarchy | Wallpapers |
 |---|---|---|---|---|
@@ -12,7 +12,7 @@ artifact side (CSS tokens, specimen pages, the theming skill) stays in
 ## Mac, with nix-darwin and home-manager
 
 ```nix
-inputs.livery.url = "github:jeffreyclegg/livery";
+inputs.livery.url = "github:warriorcatlodge/livery";
 ```
 
 ```nix
