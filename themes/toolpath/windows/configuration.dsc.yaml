@@ -1,0 +1,212 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+# ============================================================
+# TOOLPATH · SHOP FLOOR — Windows (WinGet Configuration)
+# Personal design system, Rev H. JDC.
+#
+# Run from this directory:  winget configure -f configuration.dsc.yaml
+# Review first:             winget configure show -f configuration.dsc.yaml
+#
+# ${WinGetConfigRoot} is replaced by winget with the directory holding this
+# file, so the clone can live anywhere. Everything here is per-user (HKCU)
+# except the package installs.
+#
+# Applies: Windows Terminal, VS Code, JetBrains Mono Nerd Font; dark mode
+# (Shop Floor); bearing bronze as the accent; the Toolpath Windows Terminal
+# fragment; the Shop Floor wallpaper. Revert steps are in README.md.
+# ============================================================
+properties:
+  configurationVersion: 0.2.0
+  resources:
+
+    # ---- PACKAGES ----------------------------------------------------------
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: terminal
+      directives:
+        description: Install Windows Terminal
+        allowPrerelease: true
+      settings:
+        id: Microsoft.WindowsTerminal
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: vscode
+      directives:
+        description: Install Visual Studio Code
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+
+    # The system's mono face. Nerd Font build, because the starship prompt
+    # needs its glyphs. Package id is the community DEVCOM build; confirm with
+    # `winget search JetBrainsMono` if it ever fails to resolve.
+    # Chakra Petch (display face) is not in winget. It only matters for
+    # artifacts, which load it from Google Fonts, so it is skipped here.
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: mono
+      directives:
+        description: Install JetBrains Mono Nerd Font
+        allowPrerelease: true
+      settings:
+        id: DEVCOM.JetBrainsMonoNerdFont
+        source: winget
+
+    # ---- DARK MODE = SHOP FLOOR --------------------------------------------
+    - resource: PSDscResources/Registry
+      id: apps-dark
+      directives:
+        description: Apps use dark mode
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+        ValueName: AppsUseLightTheme
+        ValueType: Dword
+        ValueData: "0"
+        Force: true
+
+    - resource: PSDscResources/Registry
+      id: system-dark
+      directives:
+        description: Taskbar and Start use dark mode
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+        ValueName: SystemUsesLightTheme
+        ValueType: Dword
+        ValueData: "0"
+        Force: true
+
+    # ---- ACCENT: bearing bronze --------------------------------------------
+    # Unlike macOS, Windows takes a custom accent, so bronze goes in exactly.
+    # It is the action color, which is what Windows uses accent for.
+    #
+    # Windows stores the accent as an ABGR DWORD: alpha, then the RGB bytes
+    # reversed.
+    #   bearing bronze #CE7A46  ->  R=CE G=7A B=46
+    #   ABGR = FF 46 7A CE      ->  0xFF467ACE  (4282809038 decimal)
+    #
+    # Hex: true because 0xFF467ACE is above Int32 max as a decimal; the
+    # resource parses hex strings as a signed DWORD. If a PSDscResources
+    # version rejects it, set the three values by hand with
+    #   reg add "<key>" /v <name> /t REG_DWORD /d 0xFF467ACE /f
+    #
+    # "Automatically pick an accent color from my background" must be off or
+    # Windows overwrites these the next time the wallpaper changes.
+    - resource: PSDscResources/Registry
+      id: accent-auto-off
+      directives:
+        description: Stop deriving the accent from the wallpaper
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Control Panel\Desktop
+        ValueName: AutoColorization
+        ValueType: Dword
+        ValueData: "0"
+        Force: true
+
+    - resource: PSDscResources/Registry
+      id: accent-dwm
+      directives:
+        description: Window accent color = bearing bronze
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM
+        ValueName: AccentColor
+        ValueType: Dword
+        ValueData: "0xFF467ACE"
+        Hex: true
+        Force: true
+
+    # 1 = accent on title bars and window borders. Bronze edge on the active
+    # window, the same cue Hyprland's active border gives under Omarchy.
+    - resource: PSDscResources/Registry
+      id: accent-titlebars
+      directives:
+        description: Show accent on title bars and window borders
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM
+        ValueName: ColorPrevalence
+        ValueType: Dword
+        ValueData: "1"
+        Force: true
+
+    # Start, taskbar and menus read this one. Windows also keeps an
+    # AccentPalette (8 shades, REG_BINARY) under the same key and may
+    # regenerate AccentColorMenu from it when Settings is next opened.
+    # Not set here: its shade math is undocumented. If the taskbar drifts
+    # back to the old color, pick bronze once in Settings > Personalization
+    # > Colors > Custom (#CE7A46) and Windows rebuilds the palette itself.
+    - resource: PSDscResources/Registry
+      id: accent-menu
+      directives:
+        description: Start and taskbar accent = bearing bronze
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent
+        ValueName: AccentColorMenu
+        ValueType: Dword
+        ValueData: "0xFF467ACE"
+        Hex: true
+        Force: true
+
+    # ---- WINDOWS TERMINAL --------------------------------------------------
+    # Fragments are read from %LOCALAPPDATA%\Microsoft\Windows Terminal\
+    # Fragments\<app name>\. This adds the two schemes without touching
+    # settings.json; pick one under Settings > Profiles > Defaults >
+    # Appearance > Color scheme, and set the font to JetBrainsMono Nerd Font.
+    - resource: PSDscResources/Script
+      id: wt-fragment
+      dependsOn:
+        - terminal
+      directives:
+        description: Install the Toolpath Windows Terminal schemes
+        allowPrerelease: true
+      settings:
+        GetScript: |
+          $dest = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows Terminal\Fragments\Toolpath\toolpath.json'
+          @{ Result = [string](Test-Path $dest) }
+        TestScript: |
+          $src  = '${WinGetConfigRoot}\toolpath.wt.json'
+          $dest = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows Terminal\Fragments\Toolpath\toolpath.json'
+          (Test-Path $dest) -and ((Get-FileHash $src).Hash -eq (Get-FileHash $dest).Hash)
+        SetScript: |
+          $src = '${WinGetConfigRoot}\toolpath.wt.json'
+          $dir = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows Terminal\Fragments\Toolpath'
+          New-Item -ItemType Directory -Force -Path $dir | Out-Null
+          Copy-Item $src (Join-Path $dir 'toolpath.json') -Force
+
+    # ---- WALLPAPER ---------------------------------------------------------
+    # 16:9 at 5120x2880 covers 1080p, 1440p, 4K and 5K by downscale. On a
+    # 21:9 panel point this at toolpath-desktop-shop-floor-uw.png instead.
+    # Reads straight from the clone: keep the clone, or copy the PNG
+    # somewhere permanent and change the path.
+    #
+    # The registry value alone does not repaint the desktop. It applies at
+    # the next sign-in, or immediately with:
+    #   RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True
+    # (that call is known to be unreliable on Windows 11; sign-out always works).
+    - resource: PSDscResources/Registry
+      id: wallpaper
+      directives:
+        description: Shop Floor wallpaper
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Control Panel\Desktop
+        ValueName: WallPaper
+        ValueType: String
+        ValueData: ${WinGetConfigRoot}\..\wallpapers\toolpath-desktop-shop-floor-16x9.png
+        Force: true
+
+    # 10 = Fill. Crops to the screen rather than letterboxing the grid.
+    - resource: PSDscResources/Registry
+      id: wallpaper-style
+      directives:
+        description: Wallpaper fit = Fill
+        allowPrerelease: true
+      settings:
+        Key: HKEY_CURRENT_USER\Control Panel\Desktop
+        ValueName: WallpaperStyle
+        ValueType: String
+        ValueData: "10"
+        Force: true

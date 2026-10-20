@@ -1,0 +1,262 @@
+# ============================================================
+# CONDUCTOR · MOFFAT — starship
+# The build machine's theme, Rev H. JDC.
+#
+#   ~/.config/starship.toml
+#
+# No Nerd Font needed. Every symbol is plain unicode or a short
+# lowercase tag ("node", "py"), the way a timetable abbreviates a
+# line. Pair with DM Mono. To use Nerd Font glyphs instead, set each
+# module's symbol; nothing else depends on them.
+#
+# Colors are the Moffat tokens and read correctly with the
+# conductor-moffat Ghostty theme or any dark ground. For Stainless,
+# swap the [palettes.conductor] values for the commented block below it.
+#
+# The prompt mark is sodium after a clean exit (the line is live, your
+# move) and warbonnet after a failure (STOP). No shader, no sentinel:
+# the color you see is the color written here.
+# ============================================================
+
+# ------------------------------------------------------------
+# LAYOUT
+#
+#   user  directory  · branch status  · versions  duration
+#   ▸
+#
+# Root-level keys must come before any [table] header. In TOML every key
+# after a header belongs to that table.
+#
+# Separators are line strong: structure, quiet. The path is hudson
+# because it is a position on the line, not an event.
+# ------------------------------------------------------------
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$package\
+$nodejs$bun$deno$python$rust$golang$ruby$java$swift$lua$zig\
+$docker_context\
+$kubernetes\
+$cmd_duration\
+$line_break\
+$character"""
+
+add_newline = true
+command_timeout = 1000
+
+palette = "conductor"
+
+[palettes.conductor]
+ground      = "#130B0B"
+panel       = "#1B1212"
+line        = "#352423"
+line_strong = "#4D3532"
+ink         = "#DADBDE"
+ink_label   = "#A4A6AB"
+# ink_annotation (#7E8086) is left out on purpose: the faintest tier
+# never labels anything, and every segment of a prompt is a label.
+sodium      = "#F2A33C"
+warbonnet   = "#E2503E"
+hudson      = "#A9B3C1"
+brunswick   = "#7DB592"
+dusk        = "#A79AD0"
+
+# Stainless. Replace the block above with these values.
+# ground      = "#DDE0E2"
+# panel       = "#EAECED"
+# line        = "#BCC1C5"
+# line_strong = "#969CA2"
+# ink         = "#16181C"
+# ink_label   = "#454B53"
+# sodium      = "#8C5306"
+# warbonnet   = "#A52F1D"
+# hudson      = "#3F5468"
+# brunswick   = "#2A5E41"
+# dusk        = "#574A86"
+
+# ------------------------------------------------------------
+[username]
+show_always = true
+style_user = "ink_label"
+# Root halts the normal rules, so it reads as STOP.
+style_root = "warbonnet"
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true
+# Dusk is rare: you are on another machine.
+style = "dusk"
+format = "[@$hostname]($style) "
+
+[directory]
+style = "hudson"
+# No truncation. A stop named by half its name is not a stop.
+truncation_length = 0
+truncate_to_repo = false
+truncation_symbol = ""
+home_symbol = "~"
+read_only = " ro"
+read_only_style = "warbonnet"
+format = "[$path]($style)[$read_only]($read_only_style)"
+
+# ------------------------------------------------------------
+# GIT
+# Branch is structure (hudson). Uncommitted work is live (sodium).
+# A conflict halts the merge (warbonnet). Ahead and behind are
+# positions on the line (hudson).
+# ------------------------------------------------------------
+[git_branch]
+symbol = ""
+style = "hudson"
+format = "[ ·](line_strong) [$symbol$branch]($style)"
+truncation_length = 24
+truncation_symbol = "…"
+
+[git_state]
+# A rebase or merge in progress: the train is held mid-route.
+style = "dusk"
+format = " [\\($state( $progress_current/$progress_total)\\)]($style)"
+
+[git_status]
+style = "sodium"
+format = "[$all_status$ahead_behind]($style)"
+conflicted = "[ =${count}](warbonnet)"
+ahead = "[ ↑${count}](hudson)"
+behind = "[ ↓${count}](hudson)"
+diverged = "[ ↕↑${ahead_count}↓${behind_count}](sodium)"
+up_to_date = ""
+untracked = " ?${count}"
+stashed = "[ ≡${count}](hudson)"
+modified = " !${count}"
+staged = " +${count}"
+renamed = " »${count}"
+deleted = " ×${count}"
+
+# ------------------------------------------------------------
+# VERSIONS — ink label. Present, not competing.
+# ------------------------------------------------------------
+[package]
+symbol = "pkg "
+style = "ink_label"
+format = "[ ·](line_strong) [$symbol$version]($style)"
+display_private = true
+
+[nodejs]
+symbol = "node "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[bun]
+symbol = "bun "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[deno]
+symbol = "deno "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[python]
+symbol = "py "
+style = "ink_label"
+format = " [$symbol$pyenv_prefix($version)( \\($virtualenv\\))]($style)"
+
+[rust]
+symbol = "rs "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[golang]
+symbol = "go "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[ruby]
+symbol = "rb "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[java]
+symbol = "java "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[swift]
+symbol = "swift "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[lua]
+symbol = "lua "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+[zig]
+symbol = "zig "
+style = "ink_label"
+format = " [$symbol($version)]($style)"
+
+# ------------------------------------------------------------
+# CONTEXT — dusk. Pointed at another engine; rare and worth noticing.
+# ------------------------------------------------------------
+[docker_context]
+symbol = "docker "
+style = "dusk"
+format = " [$symbol$context]($style)"
+only_with_files = true
+
+[kubernetes]
+symbol = "k8s "
+style = "dusk"
+format = " [$symbol$context( \\($namespace\\))]($style)"
+# Off: it shows a cluster context in every directory, which is noise.
+# Set disabled = false and add detect_files to scope it.
+disabled = true
+
+# ------------------------------------------------------------
+# DURATION — hudson. A finished run's time is a measurement, not a
+# live figure. Shown only past two seconds.
+# ------------------------------------------------------------
+[cmd_duration]
+min_time = 2000
+style = "hudson"
+format = " [$duration]($style)"
+show_notifications = false
+
+# ------------------------------------------------------------
+# THE PROMPT MARK
+# Sodium: clear to proceed. Warbonnet: the last command stopped.
+# Vi modes point back and take structure or rare colors.
+# ------------------------------------------------------------
+[character]
+success_symbol = "[▸](fg:sodium)"
+error_symbol   = "[▸](fg:warbonnet)"
+vimcmd_symbol  = "[◂](fg:hudson)"
+vimcmd_replace_one_symbol = "[◂](fg:dusk)"
+vimcmd_replace_symbol     = "[◂](fg:dusk)"
+vimcmd_visual_symbol      = "[◂](fg:sodium)"
+
+# ------------------------------------------------------------
+# OFF — noise for this machine
+# ------------------------------------------------------------
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[battery]
+disabled = true
+
+[time]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[shell]
+disabled = true

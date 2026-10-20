@@ -1,0 +1,83 @@
+# Conductor for delta (https://github.com/dandavison/delta).
+# 1. Build the bat themes delta uses for syntax:
+#      mkdir -p "$(bat --config-dir)/themes"
+#      cp conductor-moffat.tmTheme conductor-stainless.tmTheme "$(bat --config-dir)/themes/"
+#      bat cache --build
+# 2. Include this file from ~/.gitconfig:
+#      [include]
+#          path = /path/to/conductor-delta.gitconfig
+#    Switch shades with `features = conductor-stainless` (or DELTA_FEATURES=+conductor-stainless).
+
+# conductor: [core] pager and [interactive] diffFilter are left out until
+# delta is installed, or git would fail looking for it.
+
+[delta]
+    features = conductor-moffat
+    navigate = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[delta "conductor-moffat"]
+    dark = true
+    syntax-theme = conductor-moffat
+    # Brunswick = additions, Warbonnet = deletions. Tints: accent blended over ground (Moffat) or panel (Stainless).
+    plus-style = syntax "#22231E"
+    plus-emph-style = syntax "#2C342B"
+    plus-non-emph-style = syntax "#22231E"
+    minus-style = syntax "#301512"
+    minus-emph-style = syntax "#451C17"
+    minus-non-emph-style = syntax "#301512"
+    zero-style = syntax
+    whitespace-error-style = "#E2503E" reverse
+    line-numbers = true
+    line-numbers-minus-style = "#E2503E"
+    line-numbers-plus-style = "#7DB592"
+    line-numbers-zero-style = "#A4A6AB"
+    line-numbers-left-style = "#352423"
+    line-numbers-right-style = "#352423"
+    file-style = "#F2A33C" bold
+    file-decoration-style = "#F2A33C" ul
+    file-added-label = [+]
+    file-removed-label = [-]
+    file-modified-label = [~]
+    hunk-header-style = file line-number syntax
+    hunk-header-file-style = "#A9B3C1"
+    hunk-header-line-number-style = "#A9B3C1"
+    hunk-header-decoration-style = "#A9B3C1" box
+    commit-style = "#F2A33C"
+    commit-decoration-style = "#A9B3C1" box
+    blame-palette = "#130B0B #1B1212 #241817"
+    map-styles = bold purple => syntax "#2B222B", bold cyan => syntax "#2B2628"
+
+[delta "conductor-stainless"]
+    light = true
+    syntax-theme = conductor-stainless
+    # Brunswick = additions, Warbonnet = deletions. Tints: accent blended over ground (Moffat) or panel (Stainless).
+    plus-style = syntax "#D7DEDC"
+    plus-emph-style = syntax "#C4D0CB"
+    plus-non-emph-style = syntax "#D7DEDC"
+    minus-style = syntax "#E4DDDC"
+    minus-emph-style = syntax "#DFCECC"
+    minus-non-emph-style = syntax "#E4DDDC"
+    zero-style = syntax
+    whitespace-error-style = "#A52F1D" reverse
+    line-numbers = true
+    line-numbers-minus-style = "#A52F1D"
+    line-numbers-plus-style = "#2A5E41"
+    line-numbers-zero-style = "#454B53"
+    line-numbers-left-style = "#BCC1C5"
+    line-numbers-right-style = "#BCC1C5"
+    file-style = "#8C5306" bold
+    file-decoration-style = "#8C5306" ul
+    file-added-label = [+]
+    file-removed-label = [-]
+    file-modified-label = [~]
+    hunk-header-style = file line-number syntax
+    hunk-header-file-style = "#3F5468"
+    hunk-header-line-number-style = "#3F5468"
+    hunk-header-decoration-style = "#3F5468" box
+    commit-style = "#8C5306"
+    commit-decoration-style = "#3F5468" box
+    blame-palette = "#DDE0E2 #EAECED #CFD3D6"
+    map-styles = bold purple => syntax "#C8C8D3", bold cyan => syntax "#C4CACE"

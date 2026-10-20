@@ -1,0 +1,395 @@
+/* ============================================================
+   CONDUCTOR — Rev H
+   The build machine's theme · JDC
+   Usage: <html data-theme="conductor" data-shade="moffat">
+          shades: "moffat" (dark, default) | "stainless" (light)
+          no data-shade: follows prefers-color-scheme
+   Fonts: Big Shoulders Display (700,800) + Big Shoulders Stencil
+          Display (800) + Jost (400,500,600) + DM Mono (400,500)
+   Motion: assets/conductor-dust.js (dust board + flap settle)
+   Spec: references/conductor.md
+   ============================================================ */
+
+[data-theme="conductor"] {
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --font-stencil: 'Big Shoulders Stencil Display', 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  /* Materials and texture, all inline SVG or CSS, no image files:
+     --terrazzo  Moffat's ground: a dark station terrazzo floor, oxblood,
+                 grey marble and brass chips set in soot (1400px, so the
+                 repeat is never on screen twice)
+     --noise     fine film grain over everything (overlay)
+     --scuff     horizontal scratches, stretched once across each car body */
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --terrazzo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='1400'%3E%3Cfilter id='t' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045' numOctaves='2' seed='21' result='a'/%3E%3CfeColorMatrix in='a' values='0 0 0 0 .40  0 0 0 0 .20  0 0 0 0 .18  9 0 0 0 -6.0' result='ox'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09' numOctaves='2' seed='3' result='b'/%3E%3CfeColorMatrix in='b' values='0 0 0 0 .62  0 0 0 0 .63  0 0 0 0 .65  16 0 0 0 -11.6' result='gr'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.12' numOctaves='1' seed='9' result='c'/%3E%3CfeColorMatrix in='c' values='0 0 0 0 .76  0 0 0 0 .58  0 0 0 0 .30  18 0 0 0 -12.9' result='br'/%3E%3CfeMerge%3E%3CfeMergeNode in='ox'/%3E%3CfeMergeNode in='gr'/%3E%3CfeMergeNode in='br'/%3E%3C/feMerge%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.08'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E");
+  --scuff: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600' preserveAspectRatio='none'%3E%3Cfilter id='s' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='turbulence' baseFrequency='.002 .55' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.2 1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  /* Sunset run: the sky in every streamliner poster, dusk to sodium.
+     Identical in both shades; it is a sky, not a palette choice. */
+  --sunset: linear-gradient(90deg, #2B2F3E 0%, #5E2F2C 34%, #B06A48 68%, #F2A33C 100%);
+  /* Chrome: polished streamliner trim. A bright sky above a hard dark
+     horizon line, the way chrome reflects a sky over the ground.
+     Identical in both shades; trim does not change in daylight. */
+  --chrome: linear-gradient(180deg, #FBFCFD 0%, #D5DAE0 24%, #8C95A1 47%, #2D3138 50%, #5E6672 56%, #B9C0C9 78%, #F4F6F8 100%);
+  --chrome-h: linear-gradient(90deg, #5E6672 0%, #F4F6F8 18%, #A3ABB5 40%, #2D3138 52%, #C9CFD6 70%, #FBFCFD 88%, #8C95A1 100%);
+  --font-body: 'Jost', 'Futura', 'Century Gothic', sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+/* ---- SHADE: MOFFAT (dark) — night in the tunnel, warm soot under sodium lamps ---- */
+[data-theme="conductor"] {
+  --bg: #130B0B;  --bg-panel: #1B1212;  --bg-inset: #241817;
+  --line: #352423; --line-strong: #4D3532;
+  --text: #DADBDE; --text-2: #A4A6AB; --text-3: #7E8086;
+  --sodium: #F2A33C; --warbonnet: #E2503E; --hudson: #A9B3C1;
+  --brunswick: #7DB592; --dusk: #A79AD0;
+  --flap: #0B0606; --flap-seam: rgba(0,0,0,.55);
+  --vignette: rgba(0,0,0,.4); --grain: .14;
+  --material: var(--terrazzo);
+  --chrome-text: linear-gradient(180deg, #FFFFFF 0%, #E2E4E8 38%, #969BA3 49%, #555A61 51%, #AFB4BB 64%, #EEF0F2 100%);
+  color-scheme: dark;
+}
+
+/* ---- SHADE: STAINLESS (light) — Budd shotwelded steel in daylight ----
+   Three-state: OS light unless pinned to moffat; pinned stainless always. */
+@media (prefers-color-scheme: light) {
+  [data-theme="conductor"]:not([data-shade="moffat"]) {
+    --bg: #DDE0E2;  --bg-panel: #EAECED;  --bg-inset: #CFD3D6;
+    --line: #BCC1C5; --line-strong: #969CA2;
+    --text: #16181C; --text-2: #454B53; --text-3: #62686F;
+    --sodium: #8C5306; --warbonnet: #A52F1D; --hudson: #3F5468;
+    --brunswick: #2A5E41; --dusk: #574A86;
+    --flap: #1E2024; --flap-seam: rgba(0,0,0,.6);
+    --vignette: rgba(30,35,45,.18); --grain: .18;
+    --material: none;
+    --chrome-text: linear-gradient(180deg, #4A515B 0%, #262A31 45%, #0E1013 50%, #3A4049 62%, #1A1D22 100%);
+    color-scheme: light;
+  }
+}
+[data-theme="conductor"][data-shade="stainless"] {
+  --bg: #DDE0E2;  --bg-panel: #EAECED;  --bg-inset: #CFD3D6;
+  --line: #BCC1C5; --line-strong: #969CA2;
+  --text: #16181C; --text-2: #454B53; --text-3: #62686F;
+  --sodium: #8C5306; --warbonnet: #A52F1D; --hudson: #3F5468;
+  --brunswick: #2A5E41; --dusk: #574A86;
+  --flap: #1E2024; --flap-seam: rgba(0,0,0,.6);
+  --vignette: rgba(30,35,45,.18); --grain: .18;
+  --material: none;
+  --chrome-text: linear-gradient(180deg, #4A515B 0%, #262A31 45%, #0E1013 50%, #3A4049 62%, #1A1D22 100%);
+  color-scheme: light;
+}
+
+/* ============ FOUNDATION ============ */
+/* The ground is a material, not a texture: station terrazzo at night,
+   bare car-side stainless by day. The vignette rides on top of it. */
+[data-theme="conductor"] {
+  background: radial-gradient(ellipse 120% 95% at 50% 45%, transparent 55%, var(--vignette) 100%) fixed, var(--material), var(--bg);
+  color: var(--text);
+}
+[data-theme="conductor"] * { box-sizing: border-box; }
+
+[data-theme="conductor"] body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  background: transparent;
+  color: var(--text);
+  transition: background .25s, color .25s;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ============ GRIT ============
+   Worn, not shiny: a poster printed on cheap stock and a car that has
+   made the run ten thousand times. Fine grain and coarse mottling over
+   the whole surface, a dark vignette at the edges, scratches and rivets
+   on the car bodies, stencil markings, hazard stripes. Texture never
+   reaches into legibility: it sits under ink, and the ink tiers keep
+   their contrast. */
+[data-theme="conductor"]::after {
+  content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none;
+  background-image: var(--noise); opacity: var(--grain); mix-blend-mode: overlay;
+}
+.stencil {
+  font-family: var(--font-stencil); font-weight: 800;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--text-2); opacity: .85;
+}
+.hazard {
+  background: repeating-linear-gradient(-45deg,
+    var(--warbonnet) 0 6px, var(--bg-inset) 6px 12px);
+}
+.hazard.sodium {
+  background: repeating-linear-gradient(-45deg,
+    var(--sodium) 0 6px, var(--bg-inset) 6px 12px);
+}
+
+/* ============ TYPE ============
+   INK TIERS — the rule: --text-3 never labels anything.
+   --text    values, content, headlines
+   --text-2  every label, key, column header, section name
+   --text-3  pure annotation only
+   Display = Big Shoulders (always uppercase). Prose + labels = Jost.
+   Every figure = DM Mono. */
+[data-theme="conductor"] h1,
+[data-theme="conductor"] h2,
+[data-theme="conductor"] h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  line-height: 1;
+  color: var(--text);
+  margin: 0 0 .45em;
+  text-wrap: balance;
+}
+[data-theme="conductor"] h1 { font-family: var(--font-stencil); font-weight: 800; font-size: clamp(48px, 9vw, 104px); letter-spacing: .02em; }
+/* Chrome lettering on the h1 only, like the deco nameplates on the posters.
+   Solid ink stays as the fallback outside @supports. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  [data-theme="conductor"] h1 {
+    background: var(--chrome-text); -webkit-background-clip: text; background-clip: text;
+    color: transparent; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 0 rgba(0,0,0,.45));
+  }
+}
+[data-theme="conductor"] h2 { font-weight: 800; font-size: 34px; }
+[data-theme="conductor"] h3 { font-weight: 700; font-size: 22px; letter-spacing: .05em; }
+
+.num, .data, code, kbd, .table td.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+.eyebrow {
+  font-family: var(--font-body); font-weight: 600; font-size: 12px;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--hudson);
+}
+.label { font-family: var(--font-body); font-weight: 500; color: var(--text-2); }
+.annotation { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+
+/* ============ SPEED WHISKERS ============
+   Three stripes, rounded at the leading (left) end like a streamliner
+   nose, square where they run off. Zephyr steel. One per surface.
+   <div class="whiskers" aria-hidden="true"><i></i><i></i><i></i></div> */
+.whiskers { display: grid; gap: 4px; width: 100%; }
+.whiskers i { display: block; height: 3px; background: var(--chrome-h); border-radius: 3px 0 0 3px; }
+.whiskers i:nth-child(2) { width: 86%; opacity: .85; }
+.whiskers i:nth-child(3) { width: 70%; opacity: .65; }
+.whiskers.hot i:first-child { background: var(--sunset); }
+
+/* ============ PANEL — STREAMLINE NOSE ============
+   One large radius on the leading top-left corner, every other corner
+   nearly square. The car body, not a card. Never round all four. */
+.panel {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 28px 3px 3px 3px;
+  padding: 22px 24px;
+}
+/* Grain heavier on the car body; a short rivet run at the trailing top edge. */
+.panel::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: var(--scuff) 0 0 / 100% 100% no-repeat, var(--noise); opacity: .3; mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.panel::after {
+  content: ""; position: absolute; top: 8px; right: 12px; width: 62px; height: 5px;
+  background: radial-gradient(circle at 2.5px 2.5px, var(--line-strong) 1.6px, transparent 2.2px) 0 0 / 12px 5px repeat-x;
+  pointer-events: none;
+}
+.panel > * { position: relative; }
+.panel > .eyebrow:first-child { display: block; margin-bottom: 6px; }
+
+/* ============ DUST BOARD HERO ============
+   A board of square cells flickering like dust in lamplight; figures
+   gather out of it and erode away. Drawn by conductor-dust.js; this file
+   places the canvas and the poster sky: a sunset glow on the horizon.
+   Markup: <section class="hero"><canvas class="stream" aria-hidden="true"></canvas>…</section> */
+.hero {
+  position: relative; overflow: hidden; padding: 72px 0 56px;
+  background:
+    radial-gradient(ellipse 45% 60% at 82% 112%, color-mix(in srgb, #F2A33C 26%, transparent), transparent 70%),
+    radial-gradient(ellipse 85% 75% at 70% 120%, color-mix(in srgb, #B06A48 30%, transparent), transparent 72%),
+    linear-gradient(180deg, color-mix(in srgb, #2B2F3E 40%, transparent), transparent 55%);
+}
+.hero .stream {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+  -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.18) 0, rgba(0,0,0,.18) 30%, #000 66%);
+  mask-image: linear-gradient(90deg, rgba(0,0,0,.18) 0, rgba(0,0,0,.18) 30%, #000 66%);
+}
+.hero > :not(.stream) { position: relative; z-index: 1; }
+
+/* ============ SPLIT-FLAP FIGURES ============
+   The figure at rest. Each character in its own leaf with a
+   hairline seam across the middle. conductor-dust.js settles them.
+   <span class="flap" data-value="04:41">04:41</span> */
+.flap { display: inline-flex; gap: 3px; font-family: var(--font-mono); font-weight: 500; }
+.flap .leaf {
+  position: relative; display: inline-block;
+  min-width: 1.05em; padding: .12em .14em;
+  text-align: center; line-height: 1.1;
+  color: #E4E5E8;
+  /* Chrome bezel: the flap face inside a 1.5px polished rim. */
+  border: 1.5px solid transparent; border-radius: 3px;
+  background: linear-gradient(var(--flap), var(--flap)) padding-box, var(--chrome) border-box;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -2px 0 rgba(0,0,0,.35);
+}
+.flap .leaf::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 1px; background: var(--flap-seam);
+}
+.flap .leaf.sep { min-width: .5em; background: transparent; border-color: transparent; box-shadow: none; color: var(--text-2); }
+.flap .leaf.sep::after { display: none; }
+.flap.sodium .leaf:not(.sep) { color: #F2A33C; }
+
+/* ============ TIMETABLE LEADER ROWS ============
+   BUILD 4471 ·········· 03:41 */
+.leader { list-style: none; margin: 0; padding: 0; }
+.leader li {
+  display: flex; align-items: baseline; gap: 8px;
+  font-size: 15px; padding: 4px 0;
+}
+.leader .k { font-family: var(--font-body); font-weight: 500; color: var(--text-2); text-transform: uppercase; letter-spacing: .08em; font-size: 13px; white-space: nowrap; }
+.leader .dots { flex: 1; border-bottom: 2px dotted var(--line-strong); transform: translateY(-4px); }
+.leader .v { font-family: var(--font-mono); font-variant-numeric: tabular-nums slashed-zero; color: var(--text); white-space: nowrap; }
+.leader .live .v { color: var(--sodium); }
+.leader .late .v { color: var(--warbonnet); }
+
+/* ============ SIGNAL ASPECTS ============
+   Status is a lamp plus a word: CLEAR, APPROACH, STOP, HELD.
+   Never color alone. */
+.signal {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-body); font-weight: 600; font-size: 11.5px;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 3px 10px 3px 8px;
+  border: 1px solid currentColor; border-radius: 999px 3px 3px 999px;
+  color: var(--hudson);
+}
+.signal::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 1.5px #C9CFD6, 0 0 0 2.5px #2D3138, 0 0 7px currentColor;
+}
+.signal.clear    { color: var(--brunswick); }
+.signal.approach { color: var(--sodium); }
+.signal.stop     { color: var(--warbonnet); }
+.signal.held     { color: var(--dusk); }
+
+/* ============ ROUTE STRIP ============
+   For real sequences only (a pipeline, a deploy). Stops on a line,
+   passed stops filled, the current stop lit in sodium.
+   <ol class="route"><li class="passed">…</li><li class="here">…</li><li>…</li></ol> */
+.route { list-style: none; margin: 0; padding: 0; display: flex; position: relative; }
+.route::before {
+  content: ""; position: absolute; left: 9px; right: 9px; top: 8px;
+  height: 3px; background: var(--line-strong); border-radius: 3px;
+}
+.route li { flex: 1; position: relative; padding-top: 28px; min-width: 0; font-size: 13px; color: var(--text-2); text-transform: uppercase; letter-spacing: .08em; font-weight: 500; }
+.route li::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 19px; height: 19px; border-radius: 50%;
+  background: var(--bg-panel); border: 3px solid var(--line-strong);
+}
+.route li.passed::before { background: var(--hudson); border-color: var(--hudson); }
+.route li.here { color: var(--text); }
+.route li.here::before { background: var(--sodium); border-color: var(--sodium); box-shadow: 0 0 10px var(--sodium); }
+.route li.failed::before { background: var(--warbonnet); border-color: var(--warbonnet); }
+.route .t { display: block; font-family: var(--font-mono); text-transform: none; letter-spacing: 0; font-size: 12px; color: var(--text-3); }
+
+/* ============ CALLOUTS ============
+   4px left rule with a rounded nose at the top. */
+.callout {
+  border-left: 4px solid var(--line-strong);
+  border-radius: 6px 0 0 0;
+  background: var(--bg-panel);
+  padding: 14px 18px;
+}
+.callout.stop  {
+  border-left: 0; padding-left: 22px;
+  background: repeating-linear-gradient(-45deg, var(--warbonnet) 0 5px, transparent 5px 10px) left / 6px 100% no-repeat, var(--bg-panel);
+}
+.callout.clear { border-left-color: var(--brunswick); }
+.callout.live  { border-left-color: var(--sodium); }
+
+/* ============ TABLE ============ */
+.table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.table th { text-align: left; font-weight: 600; color: var(--text-2); letter-spacing: .14em; text-transform: uppercase; font-size: 11.5px; border-bottom: 2px solid var(--line-strong); padding: 8px 10px; }
+.table td { border-bottom: 1px solid var(--line); padding: 8px 10px; color: var(--text); }
+.table td.num { text-align: right; }
+
+/* ============ BUTTONS ============ */
+.btn {
+  font-family: var(--font-body); font-weight: 600; font-size: 13px;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 9px 18px; cursor: pointer;
+  border: 1px solid var(--line-strong); border-radius: 18px 3px 3px 18px;
+  background: var(--bg-inset); color: var(--text);
+}
+.btn.primary {
+  border: 1.5px solid transparent; color: var(--bg);
+  background: linear-gradient(var(--sodium), var(--sodium)) padding-box, var(--chrome) border-box;
+}
+.btn:hover { border-color: var(--sodium); }
+.btn.primary:hover { border-color: transparent; filter: brightness(1.08); }
+
+/* ============ THE SIGNATURE — PUNCHED TICKET ============
+   Every Conductor artifact ends with one. A ticket with a perforated
+   stub and the conductor's punch: a diamond cut clean through.
+   TRAIN · RUN · DATE · CONDUCTOR. */
+.ticket {
+  display: flex; margin-top: 56px; max-width: 640px;
+  position: relative;
+  background: var(--bg-inset);
+  border: 1px solid var(--line-strong);
+  border-radius: 22px 3px 3px 3px;
+  font-family: var(--font-body);
+}
+.ticket::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: var(--scuff) 0 0 / 100% 100% no-repeat, var(--noise); opacity: .32; mix-blend-mode: overlay;
+  pointer-events: none;
+}
+/* Sunset run along the ticket's top edge: a 3px strip, never a border-image. */
+.ticket::after {
+  content: ""; position: absolute; top: -1px; left: 18px; right: 0; height: 3px;
+  background: var(--sunset); pointer-events: none;
+}
+.ticket .fields { flex: 1; display: grid; grid-template-columns: 2fr 1fr 1.4fr 1.2fr; min-width: 0; }
+.ticket .fields > div { padding: 12px 16px; border-left: 1px solid var(--line); min-width: 0; }
+.ticket .fields > div:first-child { border-left: 0; }
+.ticket .k { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--text-2); }
+.ticket .v { display: block; font-family: var(--font-mono); font-size: 14px; color: var(--text); overflow-wrap: anywhere; }
+.ticket .train .v { font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; }
+.ticket .run .v { color: var(--sodium); font-weight: 500; }
+.ticket .stub {
+  position: relative; flex: none; width: 64px;
+  border-left: 2px dashed var(--line-strong);
+  display: flex; align-items: center; justify-content: center;
+}
+.ticket .stub::before, .ticket .stub::after {
+  content: ""; position: absolute; left: -9px; width: 16px; height: 8px;
+  background: var(--bg); border: 1px solid var(--line-strong);
+}
+.ticket .stub::before { top: -1px; border-top: 0; border-radius: 0 0 8px 8px; }
+.ticket .stub::after  { bottom: -1px; border-bottom: 0; border-radius: 8px 8px 0 0; }
+.ticket .punch {
+  width: 14px; height: 14px; transform: rotate(45deg);
+  border: 2px solid transparent;
+  background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--chrome-h) border-box;
+  box-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+
+@media (max-width: 560px) {
+  .ticket .fields { grid-template-columns: 1fr 1fr; }
+  .ticket .fields > div:nth-child(3) { border-left: 0; }
+  .ticket .fields > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* ============ ACCESSIBILITY ============ */
+[data-theme="conductor"] :focus-visible { outline: 2px solid var(--sodium); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="conductor"] *,
+  [data-theme="conductor"] body { transition: none !important; animation: none !important; }
+}

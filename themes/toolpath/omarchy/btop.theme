@@ -1,0 +1,98 @@
+# ============================================================
+# TOOLPATH · SHOP FLOOR — btop
+# Personal design system, Rev H. JDC.
+#
+# Omarchy reads this as ~/.config/omarchy/current/theme/btop.theme.
+# Gradients run start, mid, end as the value rises.
+#
+# TEMPERATURE carries the temper run, its one appearance on this surface:
+# straw #E9C86A, the 52% stop #C06A3E, peacock #4E86B8. Steel runs through
+# exactly these oxides as it heats, so the gauge reads the way the metal
+# would. Hot is peacock, not red; that is the point.
+#
+# Every other gradient climbs a token from its Vellum value (dim) to its
+# Shop Floor value. Vellum values measure 2.7 to 3.2:1 on this ground:
+# graph marks, not text. The process gradient is text, so every stop is
+# 5.6:1 or better.
+# ============================================================
+
+# ---- FOUNDATION ----
+# spec: ground
+theme[main_bg]="#14161B"
+# spec: ink
+theme[main_fg]="#E8EAEE"
+# spec: ink. Box titles.
+theme[title]="#E8EAEE"
+# spec: bearing bronze. Hotkey letters: the thing you can press.
+theme[hi_fg]="#CE7A46"
+# spec: line strong. Ink on it measures 8.1:1.
+theme[selected_bg]="#3D4450"
+# spec: ink
+theme[selected_fg]="#E8EAEE"
+# spec: ink label. Disabled options are still labels, so not the faint tier.
+theme[inactive_fg]="#9AA1AD"
+# spec: ink label
+theme[graph_text]="#9AA1AD"
+# spec: inset
+theme[meter_bg]="#22262F"
+# spec: dykem. Process detail figures are measurements.
+theme[proc_misc]="#5B8FBF"
+
+# ---- STRUCTURE ----
+# spec: line strong
+theme[cpu_box]="#3D4450"
+theme[mem_box]="#3D4450"
+theme[net_box]="#3D4450"
+theme[proc_box]="#3D4450"
+# spec: line
+theme[div_line]="#2E333D"
+
+# ---- TEMPERATURE: the temper run ----
+theme[temp_start]="#E9C86A"
+theme[temp_mid]="#C06A3E"
+theme[temp_end]="#4E86B8"
+
+# ---- CPU: in tolerance to action ----
+# dykem Vellum, dykem, bearing bronze at full load
+theme[cpu_start]="#35617F"
+theme[cpu_mid]="#5B8FBF"
+theme[cpu_end]="#CE7A46"
+
+# ---- MEMORY ----
+# Free: DERIVED verdigris deepened (the Vellum terminal green), verdigris,
+# DERIVED fresh patina (Ghostty 10)
+theme[free_start]="#4B6D54"
+theme[free_mid]="#6E9B7A"
+theme[free_end]="#8CBA98"
+
+# Cached: dykem Vellum, dykem, dykem light (starship's dykem_light)
+theme[cached_start]="#35617F"
+theme[cached_mid]="#5B8FBF"
+theme[cached_end]="#8FB4D4"
+
+# Available: ink label Vellum, ink annotation, ink label
+theme[available_start]="#555D68"
+theme[available_mid]="#7E8694"
+theme[available_end]="#9AA1AD"
+
+# Used: bronze Vellum, bronze, temper amber
+theme[used_start]="#9C5530"
+theme[used_mid]="#CE7A46"
+theme[used_end]="#E0A036"
+
+# ---- NETWORK ----
+# Download is measurement arriving: dykem.
+theme[download_start]="#35617F"
+theme[download_mid]="#5B8FBF"
+theme[download_end]="#8FB4D4"
+# Upload is the machine putting work out: bronze.
+theme[upload_start]="#9C5530"
+theme[upload_mid]="#CE7A46"
+theme[upload_end]="#E0A036"
+
+# ---- PROCESSES ----
+# Ink label at rest, bronze when it is the one running. Mid is DERIVED,
+# halfway between. btop draws process text in this gradient.
+theme[process_start]="#9AA1AD"
+theme[process_mid]="#B48D79"
+theme[process_end]="#CE7A46"

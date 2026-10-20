@@ -1,0 +1,19 @@
+<!doctype html>
+<!-- Conductor live wallpaper: the dust board, full screen, for Plash.
+     No data-shade, so it follows macOS Light/Dark (Stainless/Moffat). -->
+<html data-theme="conductor">
+<head>
+<meta charset="utf-8">
+<title>Conductor board</title>
+<link rel="stylesheet" href="../conductor.css">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+</style>
+</head>
+<body>
+<canvas id="board"></canvas>
+<script src="../conductor-dust.js"></script>
+<script>Conductor.dust(document.getElementById('board'), { cell: 16, region: [0.52, 0.94], spark: 0.003 });</script>
+</body>
+</html>

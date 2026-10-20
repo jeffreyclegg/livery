@@ -1,0 +1,44 @@
+# ============================================================
+# CONDUCTOR · MOFFAT — lazygit
+# The build machine's theme, Rev H. JDC.
+#
+# Merge into ~/.config/lazygit/config.yml (macOS default:
+# ~/Library/Application Support/lazygit/config.yml) under gui:.
+# Expects the conductor-moffat Ghostty theme behind it for the ground.
+#
+# The focused panel is the live one: sodium border. Unstaged work is
+# still moving, so it is sodium too, not red: warbonnet is kept for
+# STOP. A search is held input (dusk). Options and hints are hudson.
+# ============================================================
+
+gui:
+  theme:
+    activeBorderColor:
+      - "#F2A33C"
+      - bold
+    inactiveBorderColor:
+      - "#4D3532"
+    searchingActiveBorderColor:
+      - "#A79AD0"
+      - bold
+    optionsTextColor:
+      - "#A9B3C1"
+    selectedLineBgColor:
+      - "#241817"
+    inactiveViewSelectedLineBgColor:
+      - "#1B1212"
+    cherryPickedCommitFgColor:
+      - "#130B0B"
+    cherryPickedCommitBgColor:
+      - "#A79AD0"
+    markedBaseCommitFgColor:
+      - "#130B0B"
+    markedBaseCommitBgColor:
+      - "#A9B3C1"
+    unstagedChangesColor:
+      - "#F2A33C"
+    defaultFgColor:
+      - "#DADBDE"
+  # Authors are people, not status: one ink for all of them.
+  authorColors:
+    "*": "#A4A6AB"

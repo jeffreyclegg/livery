@@ -1,0 +1,120 @@
+# ============================================================
+# CONDUCTOR · MOFFAT — eza
+# The build machine's theme, Rev H. JDC.
+#
+# Install:  ~/.config/eza/theme.yml   (eza 0.18 or later)
+# Unset EZA_COLORS and LS_COLORS overrides for these to take effect.
+#
+# A listing is a timetable. Directories are structure (hudson). Things
+# that run are sodium. Signal aspects carry status only: a broken link
+# or a world-writable file is STOP, a git-new file is CLEAR. Dusk marks
+# the rare: links, mounts, special bits, root.
+#
+# Ink annotation (#7E8086) appears only on punctuation (the dashes in
+# a permission string), never on a name, a figure or a header.
+# ============================================================
+
+colourful: true
+
+filekinds:
+  normal:       { foreground: "#DADBDE" }
+  directory:    { foreground: "#A9B3C1", is_bold: true }
+  symlink:      { foreground: "#A79AD0" }
+  pipe:         { foreground: "#A79AD0" }
+  block_device: { foreground: "#A79AD0" }
+  char_device:  { foreground: "#A79AD0" }
+  socket:       { foreground: "#A79AD0" }
+  special:      { foreground: "#A79AD0" }
+  executable:   { foreground: "#F2A33C", is_bold: true }
+  mount_point:  { foreground: "#A79AD0", is_underline: true }
+
+perms:
+  user_read:          { foreground: "#A4A6AB" }
+  user_write:         { foreground: "#A9B3C1" }
+  user_execute_file:  { foreground: "#F2A33C" }
+  user_execute_other: { foreground: "#F2A33C" }
+  group_read:         { foreground: "#A4A6AB" }
+  group_write:        { foreground: "#A9B3C1" }
+  group_execute:      { foreground: "#F2A33C" }
+  other_read:         { foreground: "#A4A6AB" }
+  # World-writable is a hazard.
+  other_write:        { foreground: "#E2503E", is_bold: true }
+  other_execute:      { foreground: "#F2A33C" }
+  special_user_file:  { foreground: "#A79AD0" }
+  special_other:      { foreground: "#A79AD0" }
+  attribute:          { foreground: "#A4A6AB" }
+
+size:
+  major:        { foreground: "#A9B3C1" }
+  minor:        { foreground: "#A9B3C1" }
+  number_byte:  { foreground: "#A9B3C1" }
+  number_kilo:  { foreground: "#A9B3C1" }
+  number_mega:  { foreground: "#A9B3C1" }
+  number_giga:  { foreground: "#F2A33C" }
+  number_huge:  { foreground: "#F2A33C", is_bold: true }
+  unit_byte:    { foreground: "#A4A6AB" }
+  unit_kilo:    { foreground: "#A4A6AB" }
+  unit_mega:    { foreground: "#A4A6AB" }
+  unit_giga:    { foreground: "#F2A33C" }
+  unit_huge:    { foreground: "#F2A33C" }
+
+users:
+  user_you:    { foreground: "#A4A6AB" }
+  user_root:   { foreground: "#A79AD0" }
+  user_other:  { foreground: "#DADBDE" }
+  group_yours: { foreground: "#A4A6AB" }
+  group_other: { foreground: "#DADBDE" }
+  group_root:  { foreground: "#A79AD0" }
+
+links:
+  normal:          { foreground: "#A4A6AB" }
+  multi_link_file: { foreground: "#A79AD0" }
+
+git:
+  new:        { foreground: "#7DB592" }
+  modified:   { foreground: "#F2A33C" }
+  deleted:    { foreground: "#E2503E" }
+  renamed:    { foreground: "#A9B3C1" }
+  typechange: { foreground: "#A79AD0" }
+  ignored:    { foreground: "#A4A6AB" }
+  conflicted: { foreground: "#E2503E", is_bold: true }
+
+git_repo:
+  branch_main:  { foreground: "#A9B3C1" }
+  branch_other: { foreground: "#A9B3C1" }
+  git_clean:    { foreground: "#7DB592" }
+  git_dirty:    { foreground: "#F2A33C" }
+
+security_context:
+  colon: { foreground: "#7E8086" }
+  user:  { foreground: "#A4A6AB" }
+  role:  { foreground: "#A4A6AB" }
+  typ:   { foreground: "#A4A6AB" }
+  range: { foreground: "#A4A6AB" }
+
+# File types stay in ink. Coloring by extension turns a listing into
+# confetti; only archives get a mark, in dusk.
+file_type:
+  image:      { foreground: "#DADBDE" }
+  video:      { foreground: "#DADBDE" }
+  music:      { foreground: "#DADBDE" }
+  lossless:   { foreground: "#DADBDE" }
+  crypto:     { foreground: "#DADBDE" }
+  document:   { foreground: "#DADBDE" }
+  compressed: { foreground: "#A79AD0" }
+  temp:       { foreground: "#A4A6AB" }
+  compiled:   { foreground: "#A4A6AB" }
+  build:      { foreground: "#DADBDE", is_underline: true }
+  source:     { foreground: "#DADBDE" }
+
+punctuation:   { foreground: "#7E8086" }
+date:          { foreground: "#A9B3C1" }
+inode:         { foreground: "#A4A6AB" }
+blocks:        { foreground: "#A4A6AB" }
+header:        { foreground: "#DADBDE", is_underline: true }
+octal:         { foreground: "#A9B3C1" }
+flags:         { foreground: "#A4A6AB" }
+control_char:  { foreground: "#E2503E" }
+symlink_path:  { foreground: "#A9B3C1" }
+broken_symlink:       { foreground: "#E2503E" }
+broken_path_overlay:  { is_underline: true }

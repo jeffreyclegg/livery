@@ -1,0 +1,11 @@
+/* ============================================================
+   TOOLPATH · SHOP FLOOR — walker
+   Personal design system, Rev H. JDC.
+   Selection in bronze (the action). Frame in dykem (structure).
+   ============================================================ */
+@define-color selected-text #CE7A46;
+@define-color text #E8EAEE;
+@define-color base #1C1F26;
+@define-color border #5B8FBF;
+@define-color foreground #E8EAEE;
+@define-color background #14161B;

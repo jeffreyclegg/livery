@@ -1,0 +1,74 @@
+# Conductor · Stainless — Ghostty theme
+# Budd stainless in daylight, Rev H. JDC.
+#
+# Normal slots are literal Stainless spec values, the same rule as Moffat.
+# Every normal slot 1-6 clears 4.5:1 on the ground (#DDE0E2):
+#   1 warbonnet 5.24  2 brunswick 5.70  3 sodium 4.72
+#   4 hudson    5.91  5 dusk      5.80  6 lunar  5.48
+#
+# Bright slots are the same token "lit", but in daylight a lit lamp reads
+# deeper and harder, not paler: a paler red or amber would wash out on
+# steel. Each bright slot is the token darkened along its own hue, and
+# every one clears 6.6:1 on the ground.
+#
+# 0 and 7 swap roles from Moffat. On a light ground "black" has to be
+# dark ink and "white" has to be close to the steel, or tools that print
+# black text, or white backgrounds, break.
+#
+# Install:  ~/.config/ghostty/themes/conductor-stainless
+# Config:   theme = conductor-stainless
+#   or:     theme = light:conductor-stainless,dark:conductor-moffat
+#
+# Ghostty does not support trailing comments. Keep notes on their own lines.
+
+# ---- FOUNDATION ----
+# spec: ground
+background = #DDE0E2
+# spec: ink (13.4:1)
+foreground = #16181C
+
+# ---- CURSOR ----
+# spec: sodium. The figure color.
+cursor-color = #8C5306
+cursor-text = #DDE0E2
+
+# ---- SELECTION ----
+# spec: line strong. Ink on it measures 6.4:1.
+selection-background = #969CA2
+selection-foreground = #16181C
+
+# ---- ANSI 0-7 (normal = Stainless token, literal) ----
+# 0 black — spec: ink
+palette = 0=#16181C
+# 1 red — spec: warbonnet (signal STOP). 5.24:1
+palette = 1=#A52F1D
+# 2 green — spec: brunswick (signal CLEAR). 5.70:1
+palette = 2=#2A5E41
+# 3 yellow — spec: sodium (signal APPROACH). 4.72:1
+palette = 3=#8C5306
+# 4 blue — spec: hudson steel. 5.91:1
+palette = 4=#3F5468
+# 5 magenta — spec: dusk. 5.80:1
+palette = 5=#574A86
+# 6 cyan — DERIVED. Lunar, daylight: the lunar lamp's hue taken down to clear the steel. 5.48:1
+palette = 6=#1F5F66
+# 7 white — spec: inset
+palette = 7=#CFD3D6
+
+# ---- ANSI 8-15 (bright = the same token, lamp lit in daylight) ----
+# 8 bright black — spec: line strong. Autosuggest and comments; deliberately quiet.
+palette = 8=#969CA2
+# 9 bright red — DERIVED. Warbonnet, lit. 7.75:1
+palette = 9=#7A2012
+# 10 bright green — DERIVED. Brunswick, lit. 7.62:1
+palette = 10=#1D4A32
+# 11 bright yellow — DERIVED. Sodium, lit. 6.60:1
+palette = 11=#6E4004
+# 12 bright blue — DERIVED. Hudson, polished. 8.28:1
+palette = 12=#2C3E50
+# 13 bright magenta — DERIVED. Dusk, lit. 8.26:1
+palette = 13=#40346A
+# 14 bright cyan — DERIVED. Lunar, lit. 7.43:1
+palette = 14=#174A50
+# 15 bright white — spec: panel
+palette = 15=#EAECED

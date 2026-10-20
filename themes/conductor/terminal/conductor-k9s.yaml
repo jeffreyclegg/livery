@@ -1,0 +1,127 @@
+# ============================================================
+# CONDUCTOR · MOFFAT — k9s
+# The build machine's theme, Rev H. JDC.
+#
+# Install:  ~/.config/k9s/skins/conductor-moffat.yaml
+#           (macOS without XDG: ~/Library/Application Support/k9s/skins/)
+# Config:   k9s.ui.skin: conductor-moffat   (in config.yaml)
+#
+# A cluster is a yard of trains. Rows read as signal aspects: a resource
+# coming up is CLEAR (brunswick), one changing state is APPROACH
+# (sodium), an error is STOP (warbonnet). Terminating is held (dusk).
+# Completed is a passed stop (hudson). Healthy rows stay in ink.
+#
+# The cursor row is a flap leaf: #E4E5E8 on #0B0606, framed by the
+# sodium focus border. The faintest ink tier is not used.
+# ============================================================
+
+# Anchors keep the tokens in one place.
+ground: &ground "#130B0B"
+panel: &panel "#1B1212"
+inset: &inset "#241817"
+line: &line "#352423"
+line_strong: &line_strong "#4D3532"
+ink: &ink "#DADBDE"
+ink_label: &ink_label "#A4A6AB"
+flap: &flap "#0B0606"
+flap_ink: &flap_ink "#E4E5E8"
+sodium: &sodium "#F2A33C"
+warbonnet: &warbonnet "#E2503E"
+hudson: &hudson "#A9B3C1"
+brunswick: &brunswick "#7DB592"
+dusk: &dusk "#A79AD0"
+
+k9s:
+  body:
+    fgColor: *ink
+    bgColor: *ground
+    logoColor: *sodium
+  prompt:
+    fgColor: *ink
+    bgColor: *panel
+    suggestColor: *ink_label
+  info:
+    fgColor: *ink
+    sectionColor: *hudson
+  dialog:
+    fgColor: *ink
+    bgColor: *panel
+    buttonFgColor: *ink
+    buttonBgColor: *inset
+    buttonFocusFgColor: *ground
+    buttonFocusBgColor: *sodium
+    labelFgColor: *hudson
+    fieldFgColor: *ink
+  frame:
+    border:
+      fgColor: *line_strong
+      focusColor: *sodium
+    menu:
+      fgColor: *ink_label
+      keyColor: *sodium
+      numKeyColor: *sodium
+    crumbs:
+      fgColor: *ink
+      bgColor: *inset
+      activeColor: *flap
+    status:
+      newColor: *ink
+      modifyColor: *sodium
+      addColor: *brunswick
+      pendingColor: *sodium
+      errorColor: *warbonnet
+      highlightColor: *sodium
+      killColor: *dusk
+      completedColor: *hudson
+    title:
+      fgColor: *ink
+      bgColor: *ground
+      highlightColor: *sodium
+      counterColor: *hudson
+      filterColor: *dusk
+  views:
+    charts:
+      bgColor: *ground
+      chartBgColor: *ground
+      dialBgColor: *ground
+      defaultDialColors:
+        - *brunswick
+        - *warbonnet
+      defaultChartColors:
+        - *brunswick
+        - *warbonnet
+    table:
+      fgColor: *ink
+      bgColor: *ground
+      cursorFgColor: *flap_ink
+      cursorBgColor: *flap
+      markColor: *sodium
+      header:
+        fgColor: *ink_label
+        bgColor: *ground
+        sorterColor: *sodium
+    xray:
+      fgColor: *ink
+      bgColor: *ground
+      cursorColor: *flap
+      cursorTextColor: *flap_ink
+      graphicColor: *hudson
+      showIcons: false
+    yaml:
+      keyColor: *hudson
+      colonColor: *ink_label
+      valueColor: *ink
+    logs:
+      fgColor: *ink
+      bgColor: *ground
+      indicator:
+        fgColor: *ink
+        bgColor: *inset
+        toggleOnColor: *brunswick
+        toggleOffColor: *ink_label
+  help:
+    fgColor: *ink
+    bgColor: *ground
+    keyColor: *sodium
+    numKeyColor: *sodium
+    sectionColor: *hudson

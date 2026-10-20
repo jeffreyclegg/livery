@@ -1,0 +1,67 @@
+/* ============================================================
+   TOOLPATH · SHOP FLOOR — waybar
+   Personal design system, Rev H. JDC.
+
+   Styled as a machine's digital readout. Figures in tabular numerals so
+   digits hold their column as they change; readings in dykem; the active
+   workspace in bearing bronze with a bar under it, like the selected axis
+   on a DRO. A single line-strong rule under the bar, no temper: the bar
+   is chrome, and the desktop already carries the mark.
+
+   Omarchy's ~/.config/waybar/style.css imports this file first, then sets
+   its own rules. Everything below uses an id or a class, so it outranks
+   style.css's `*` and `#workspaces button` rules regardless of order.
+   ============================================================ */
+@define-color foreground #E8EAEE;
+@define-color background #14161B;
+@define-color label #9AA1AD;
+@define-color line-strong #3D4450;
+@define-color dykem #5B8FBF;
+@define-color bronze #CE7A46;
+@define-color amber #E0A036;
+
+window#waybar {
+  border-bottom: 1px solid @line-strong;
+  font-feature-settings: "tnum";
+}
+
+/* ---- workspaces: label tier at rest, bronze when selected ---- */
+#workspaces button {
+  color: @label;
+}
+
+#workspaces button.active {
+  color: @bronze;
+  box-shadow: inset 0 -2px @bronze;
+}
+
+/* Status is color plus text: the workspace number stays, amber flags it. */
+#workspaces button.urgent {
+  color: @amber;
+}
+
+/* ---- readings ---- */
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#pulseaudio,
+#wireplumber,
+#battery {
+  color: @dykem;
+}
+
+#clock {
+  color: @foreground;
+  letter-spacing: 1px;
+}
+
+#battery.warning,
+#battery.critical {
+  color: @bronze;
+}
+
+tooltip {
+  background-color: #1C1F26;
+  border: 1px solid @line-strong;
+}
