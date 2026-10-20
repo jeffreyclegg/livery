@@ -2,7 +2,7 @@
 // CONDUCTOR · MOFFAT — dust board shader for Ghostty
 // The build machine's terminal, Rev G. JDC.
 //
-//   custom-shader = conductor-dust.glsl
+//   custom-shader = shaders/conductor-dust.glsl
 //   custom-shader-animation = true
 //
 // A very quiet departure board seen through dust, behind the text: square

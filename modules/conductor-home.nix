@@ -21,7 +21,9 @@ in
   config = lib.mkIf cfg.enable {
     programs.ghostty.settings = {
       theme = "conductor-${cfg.shade}";
-      custom-shader = "conductor-dust.glsl";
+      # Ghostty resolves a relative shader path against the config file's
+      # directory, so point at the file itself.
+      custom-shader = "${t}/ghostty/conductor-dust.glsl";
       custom-shader-animation = true;
       font-family = "DM Mono";
     };
@@ -32,7 +34,6 @@ in
     xdg.configFile = {
       "ghostty/themes/conductor-moffat".source = "${t}/ghostty/conductor-moffat.ghostty";
       "ghostty/themes/conductor-stainless".source = "${t}/ghostty/conductor-stainless.ghostty";
-      "ghostty/shaders/conductor-dust.glsl".source = "${t}/ghostty/conductor-dust.glsl";
       "starship.toml".source = "${t}/terminal/conductor-starship.toml";
       "eza/theme.yml".source = "${t}/terminal/conductor-eza.yml";
       "lazygit/config.yml".source = "${t}/terminal/conductor-lazygit.yml";
