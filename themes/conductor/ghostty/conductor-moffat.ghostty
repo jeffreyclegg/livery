@@ -1,0 +1,65 @@
+# Conductor · Moffat — Ghostty theme
+# The build machine's theme, Rev G. JDC.
+#
+# Normal slots are literal Moffat spec values. Bright slots are the same
+# token "lit": the signal lamp switched on. This inverts Toolpath's
+# mapping on purpose. Under Toolpath's rule (normal = light-shade token)
+# the normal slots measured 2.4 to 3.1:1 on this ground, and a build
+# machine's terminal is read all day: git diffs, test output, logs.
+#
+# Install:  ~/.config/ghostty/themes/conductor-moffat
+# Config:   theme = conductor-moffat
+#
+# Ghostty does not support trailing comments. Keep notes on their own lines.
+
+# ---- FOUNDATION ----
+# spec: ground
+background = #130B0B
+# spec: ink
+foreground = #DADBDE
+
+# ---- CURSOR ----
+# spec: sodium. The figure color.
+cursor-color = #F2A33C
+cursor-text = #130B0B
+
+# ---- SELECTION ----
+# spec: line strong
+selection-background = #4D3532
+selection-foreground = #DADBDE
+
+# ---- ANSI 0-7 (normal = Moffat token, literal) ----
+# 0 black — spec: inset
+palette = 0=#241817
+# 1 red — spec: warbonnet (signal STOP)
+palette = 1=#E2503E
+# 2 green — spec: brunswick (signal CLEAR)
+palette = 2=#7DB592
+# 3 yellow — spec: sodium (signal APPROACH)
+palette = 3=#F2A33C
+# 4 blue — spec: hudson steel
+palette = 4=#A9B3C1
+# 5 magenta — spec: dusk
+palette = 5=#A79AD0
+# 6 cyan — DERIVED. Lunar: the bluish-white signal lamp. Conductor has no cyan.
+palette = 6=#7FC4CC
+# 7 white — spec: ink label
+palette = 7=#A4A6AB
+
+# ---- ANSI 8-15 (bright = the same token, lamp lit) ----
+# 8 bright black — spec: line strong
+palette = 8=#4D3532
+# 9 bright red — DERIVED. Warbonnet, lit.
+palette = 9=#FF8370
+# 10 bright green — DERIVED. Brunswick, lit.
+palette = 10=#A6D9B6
+# 11 bright yellow — DERIVED. Sodium, lit.
+palette = 11=#FFC46E
+# 12 bright blue — DERIVED. Hudson, polished.
+palette = 12=#CDD5DF
+# 13 bright magenta — DERIVED. Dusk, lit.
+palette = 13=#C9BFEA
+# 14 bright cyan — DERIVED. Lunar, lit.
+palette = 14=#B5E2E6
+# 15 bright white — spec: ink
+palette = 15=#DADBDE

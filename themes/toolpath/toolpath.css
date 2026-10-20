@@ -1,0 +1,231 @@
+/* ============================================================
+   TOOLPATH — Rev H
+   Personal design system · JDC
+   Usage: <body data-theme="toolpath" data-shade="shop-floor">
+          shades: "shop-floor" (dark) | "vellum" (light)
+   Fonts: Chakra Petch (500,600,700) + JetBrains Mono (400,500,600)
+   ============================================================ */
+
+:root {
+  --font-display: 'Chakra Petch', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+  --chamfer: 10px;
+  --chamfer-in: 9px;
+
+  /* Temper spectrum — steel oxide colors as it heats. Shade-independent. */
+  --t-straw:  #E9C86A;
+  --t-amber:  #E0A036;
+  --t-bronze: #C06A3E;
+  --t-violet: #9A5B8F;
+  --t-blue:   #4E86B8;
+  --temper: linear-gradient(90deg,
+    var(--t-straw), var(--t-amber) 28%, var(--t-bronze) 52%,
+    var(--t-violet) 74%, var(--t-blue));
+}
+
+/* ---- SHADE: SHOP FLOOR (dark) ---- */
+[data-theme="toolpath"][data-shade="shop-floor"] {
+  --bg: #14161B;  --bg-panel: #1C1F26;  --bg-inset: #22262F;
+  --line: #2E333D; --line-strong: #3D4450;
+  --text: #E8EAEE; --text-2: #9AA1AD; --text-3: #7E8694;
+  --dykem: #5B8FBF; --bronze: #CE7A46; --violet: #B87AAD;
+  --on-bronze: #F7F2EA;
+  --grid: rgba(91,143,191,0.06); --hatch: rgba(91,143,191,0.10);
+}
+
+/* ---- SHADE: VELLUM (light) ---- */
+[data-theme="toolpath"][data-shade="vellum"] {
+  --bg: #E9E6DF;  --bg-panel: #F4F2EC;  --bg-inset: #DDD9D0;
+  --line: #CBC6BA; --line-strong: #A9A396;
+  --text: #262B33; --text-2: #555D68; --text-3: #6F7680;
+  --dykem: #35617F; --bronze: #9C5530; --violet: #7E4A74;
+  --on-bronze: #F7F2EA;
+  --grid: rgba(53,97,127,0.09); --hatch: rgba(53,97,127,0.12);
+}
+
+/* ============ FOUNDATION ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-mono);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14.5px;
+  line-height: 1.75;
+  font-feature-settings: 'tnum' 1;   /* tabular figures everywhere */
+  transition: background .25s, color .25s;
+}
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ============ TYPE ============
+   INK TIERS — the rule: --text-3 never labels anything.
+   --text    values, content, headlines
+   --text-2  every label, key, column header, section name
+   --text-3  pure annotation only (captions on decorative marks)
+*/
+h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(44px, 8vw, 76px);
+  letter-spacing: .02em; text-transform: uppercase; line-height: .98;
+}
+h2 {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 15px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-2);
+  display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
+}
+h2::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+h2 .idx { color: var(--violet); font-weight: 400; }  /* section index */
+
+h3, .label {
+  font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-2); font-weight: 600; margin-bottom: 12px;
+}
+.eyebrow {
+  font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--dykem); margin-bottom: 14px;
+}
+.stat { font-family: var(--font-display); font-weight: 700; font-size: 44px; line-height: 1; }
+.stat-unit { font-size: 13px; color: var(--bronze); letter-spacing: .08em; }
+
+/* Ghost pass — outline type. Solid fallback first. */
+.ghost { color: var(--dykem); }
+@supports ((-webkit-text-stroke: 1px black)) {
+  h1 .ghost { color: transparent; -webkit-text-stroke: 1.5px var(--dykem); }
+  .ghost { color: transparent; -webkit-text-stroke: 1.2px var(--dykem); }
+}
+
+/* ============ CHAMFER FRAME ============
+   Transparent element + two layers: ::before is the stroke at full chamfer,
+   ::after is the face inset 1px at a tighter chamfer. Gives the 45deg cut a
+   real edge, which border+clip-path cannot. Override --frame / --face.
+*/
+.cham { position: relative; background: transparent; border: none; }
+.cham::before {
+  content: ''; position: absolute; inset: 0; z-index: -2;
+  background: var(--frame, var(--line));
+  clip-path: polygon(var(--chamfer) 0, 100% 0, 100% calc(100% - var(--chamfer)),
+                     calc(100% - var(--chamfer)) 100%, 0 100%, 0 var(--chamfer));
+}
+.cham::after {
+  content: ''; position: absolute; inset: 1px; z-index: -1;
+  background: var(--face, var(--bg-panel));
+  clip-path: polygon(var(--chamfer-in) 0, 100% 0, 100% calc(100% - var(--chamfer-in)),
+                     calc(100% - var(--chamfer-in)) 100%, 0 100%, 0 var(--chamfer-in));
+}
+
+/* ============ PANEL + MITERED CORNER TICK ============ */
+.panel { padding: 22px 24px; --frame: var(--line); --face: var(--bg-panel); }
+
+/* Bars cut at 45deg where they meet: seam runs outer corner to inner corner,
+   a true miter. Gradients meet at bronze on the seam so the temper run
+   continues around the bend: straw in, bronze at the corner, blue out. */
+.tick { position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; pointer-events: none; }
+.tick::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 16px; height: 3px;
+  background: linear-gradient(90deg, var(--t-straw), var(--t-amber) 62%, var(--t-bronze) 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+}
+.tick::after {
+  content: ''; position: absolute; top: 0; right: 0; width: 3px; height: 16px;
+  background: linear-gradient(180deg, var(--t-bronze) 0%, var(--t-violet) 52%, var(--t-blue));
+  clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 3px);
+}
+
+/* ============ TEMPER LINE ============ */
+.temper-line { height: 3px; background: var(--temper); max-width: 420px; margin-top: 22px; position: relative; }
+.temper-line .cap {
+  position: absolute; right: 0; top: 9px;
+  font-size: 10.5px; letter-spacing: .14em; color: var(--text-3);
+}
+
+/* ============ HERO ============ */
+.hero {
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  border-bottom: 1px solid var(--line);
+  padding: 56px 0 44px; margin-bottom: 48px;
+  position: relative; overflow: hidden;
+}
+/* Section hatch — drafting shorthand for a cut surface. Hero only. */
+.hero::after {
+  content: ''; position: absolute; right: -40px; top: -40px; width: 220px; height: 220px;
+  background: repeating-linear-gradient(45deg, var(--hatch) 0 1px, transparent 1px 9px);
+  clip-path: polygon(100% 0, 100% 100%, 0 0); pointer-events: none;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-block; font-family: var(--font-mono); font-weight: 600;
+  font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 11px 20px; cursor: pointer;
+  --chamfer: 8px; --chamfer-in: 7px;
+}
+.btn.solid { --frame: var(--bronze); --face: var(--bronze); color: var(--on-bronze); }
+.btn.ghost-btn { --frame: var(--dykem); --face: var(--bg-panel); color: var(--dykem); }
+.btn.vio { --frame: var(--violet); --face: var(--bg-panel); color: var(--violet); }
+.btn:focus-visible { outline: 2px solid var(--bronze); outline-offset: 2px; }
+
+/* ============ DOT-LEADER SPEC LIST ============
+   Signature element. Honest only in monospace. */
+.leader { list-style: none; }
+.leader li { display: flex; align-items: baseline; gap: 8px; font-size: 13.5px; padding: 4px 0; }
+.leader .k { color: var(--text-2); white-space: nowrap; }
+.leader .dots { flex: 1; border-bottom: 1px dotted var(--line-strong); transform: translateY(-3px); }
+.leader .v { color: var(--text); white-space: nowrap; }
+.leader .v.hot { color: var(--bronze); }
+
+/* ============ BARS ============ */
+.bar-row { display: grid; grid-template-columns: 90px 1fr 48px; gap: 12px; align-items: center; margin-bottom: 10px; }
+.bar-row .lbl { font-size: 12px; color: var(--text-2); }
+.bar-row .val { font-size: 12px; color: var(--text); text-align: right; }
+.bar-track { height: 10px; background: var(--bg-inset); position: relative; overflow: hidden; }
+.bar-fill { position: absolute; inset: 0 auto 0 0; background: var(--dykem); }
+/* Hot bar: full track carries the temper spectrum as a fixed scale; the
+   remainder is covered, so the fill reveals heat rising up the scale. */
+.bar-track.hot { background: var(--temper); }
+.bar-cover { position: absolute; inset: 0 0 0 auto; background: var(--bg-inset); }
+
+/* ============ TABLE ============ */
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th {
+  font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-2); font-weight: 600; text-align: left;
+  border-bottom: 1px solid var(--line-strong); padding: 8px 10px 8px 0;
+}
+td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--line); color: var(--text-2); }
+td:first-child { color: var(--text); font-weight: 500; }
+
+/* Status: always color + text label, never color alone. */
+.ok   { color: var(--dykem);  font-size: 12px; letter-spacing: .08em; }
+.warn { color: var(--bronze); font-size: 12px; letter-spacing: .08em; }
+.flag { color: var(--violet); font-size: 12px; letter-spacing: .08em; }
+
+/* ============ TITLE BLOCK — THE SIGNATURE ============
+   Every Toolpath artifact ends with this. Temper strip on the TOP EDGE ONLY. */
+.titleblock {
+  margin-top: 64px; position: relative;
+  border: 1px solid var(--line-strong);
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  background: var(--bg-panel);
+}
+.titleblock::before {
+  content: ''; position: absolute; inset: -1px -1px auto -1px; height: 3px;
+  background: var(--temper);
+}
+.tb-cell { padding: 10px 14px; border-right: 1px solid var(--line); }
+.tb-cell:last-child { border-right: none; }
+.tb-cell .k {
+  font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-2); font-weight: 600; display: block; margin-bottom: 3px;
+}
+.tb-cell .v { font-size: 13.5px; color: var(--text); letter-spacing: .04em; }
+.tb-cell .v.accent { color: var(--bronze); }
+
+/* ============ RESPONSIVE / MOTION ============ */
+@media (max-width: 680px) {
+  .titleblock { grid-template-columns: 1fr 1fr; }
+  .tb-cell { border-bottom: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: reduce) { body { transition: none; } }

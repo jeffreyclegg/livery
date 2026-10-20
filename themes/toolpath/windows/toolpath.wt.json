@@ -1,0 +1,50 @@
+{
+  "schemes": [
+    {
+      "name": "Toolpath Shop Floor",
+      "background": "#14161B",
+      "foreground": "#E8EAEE",
+      "cursorColor": "#CE7A46",
+      "selectionBackground": "#22262F",
+      "black": "#14161B",
+      "red": "#9C5530",
+      "green": "#6E9B7A",
+      "yellow": "#E0A036",
+      "blue": "#35617F",
+      "purple": "#7E4A74",
+      "cyan": "#4E86B8",
+      "white": "#9AA1AD",
+      "brightBlack": "#3D4450",
+      "brightRed": "#CE7A46",
+      "brightGreen": "#8CBA98",
+      "brightYellow": "#E9C86A",
+      "brightBlue": "#5B8FBF",
+      "brightPurple": "#B87AAD",
+      "brightCyan": "#6FAEC0",
+      "brightWhite": "#E8EAEE"
+    },
+    {
+      "name": "Toolpath Vellum",
+      "background": "#E9E6DF",
+      "foreground": "#262B33",
+      "cursorColor": "#9C5530",
+      "selectionBackground": "#DDD9D0",
+      "black": "#262B33",
+      "red": "#98532F",
+      "green": "#4B6D54",
+      "yellow": "#895D15",
+      "blue": "#35617F",
+      "purple": "#7E4A74",
+      "cyan": "#366C7C",
+      "white": "#555D68",
+      "brightBlack": "#60666E",
+      "brightRed": "#98532F",
+      "brightGreen": "#4B6D54",
+      "brightYellow": "#895D15",
+      "brightBlue": "#35617F",
+      "brightPurple": "#7E4A74",
+      "brightCyan": "#366C7C",
+      "brightWhite": "#262B33"
+    }
+  ]
+}

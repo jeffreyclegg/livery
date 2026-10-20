@@ -1,0 +1,28 @@
+{
+  "name": "conductor-theme",
+  "displayName": "Conductor",
+  "description": "Conductor (Rev H): Moffat (dark) and Stainless (light).",
+  "version": "1.0.0",
+  "publisher": "jdc",
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Conductor Moffat",
+        "uiTheme": "vs-dark",
+        "path": "./themes/conductor-moffat-color-theme.json"
+      },
+      {
+        "label": "Conductor Stainless",
+        "uiTheme": "vs",
+        "path": "./themes/conductor-stainless-color-theme.json"
+      }
+    ]
+  }
+}

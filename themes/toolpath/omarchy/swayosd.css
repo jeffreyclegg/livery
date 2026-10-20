@@ -1,0 +1,10 @@
+/* ============================================================
+   TOOLPATH · SHOP FLOOR — SwayOSD
+   Personal design system, Rev H. JDC.
+   The level bar is a reading, so it fills in dykem.
+   ============================================================ */
+@define-color background-color #14161B;
+@define-color border-color #3D4450;
+@define-color label #E8EAEE;
+@define-color image #E8EAEE;
+@define-color progress #5B8FBF;

@@ -1,0 +1,42 @@
+# ============================================================
+# TOOLPATH · SHOP FLOOR — Omarchy palette
+# Personal design system, Rev H. JDC.
+#
+# Omarchy 3.x renders every themed config it is not handed from these keys
+# (default/themed/*.tpl). The files beside this one override the templates
+# where Toolpath needs more than one accent; the rest (foot, helix,
+# obsidian, keyboard.rgb) come from here.
+#
+# Slots are the Ghostty theme's, slot for slot: normal = the Vellum value of
+# each token, bright = the Shop Floor value. Green and bright cyan are the
+# derived verdigris and lightened peacock, as there.
+# ============================================================
+
+# spec: bearing bronze. The action color: active border, focus, progress.
+accent = "#CE7A46"
+# spec: bearing bronze
+cursor = "#CE7A46"
+# spec: ink
+foreground = "#E8EAEE"
+# spec: ground
+background = "#14161B"
+# spec: ink on inset
+selection_foreground = "#E8EAEE"
+selection_background = "#22262F"
+
+color0 = "#14161B"
+color1 = "#9C5530"
+color2 = "#6E9B7A"
+color3 = "#E0A036"
+color4 = "#35617F"
+color5 = "#7E4A74"
+color6 = "#4E86B8"
+color7 = "#9AA1AD"
+color8 = "#3D4450"
+color9 = "#CE7A46"
+color10 = "#8CBA98"
+color11 = "#E9C86A"
+color12 = "#5B8FBF"
+color13 = "#B87AAD"
+color14 = "#6FAEC0"
+color15 = "#E8EAEE"

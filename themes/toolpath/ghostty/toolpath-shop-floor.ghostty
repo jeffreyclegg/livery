@@ -1,0 +1,63 @@
+# Toolpath · Shop Floor — Ghostty theme
+# Personal design system, Rev H. JDC.
+#
+# 13 of 16 ANSI slots are literal Toolpath spec values. Each normal/bright
+# pair is the same token at its Vellum and Shop Floor shade — so the bright
+# variant is not an arbitrary tint, it is the other half of the token.
+#
+# Install:  ~/.config/ghostty/themes/toolpath-shop-floor
+# Config:   theme = toolpath-shop-floor
+#
+# Ghostty does not support trailing comments. Keep notes on their own lines.
+
+# ---- FOUNDATION ----
+# spec: ground
+background = #14161B
+# spec: ink
+foreground = #E8EAEE
+
+# ---- CURSOR ----
+# spec: bearing bronze, Shop Floor. The action color.
+cursor-color = #CE7A46
+cursor-text = #14161B
+
+# ---- SELECTION ----
+# spec: inset
+selection-background = #22262F
+selection-foreground = #E8EAEE
+
+# ---- ANSI 0-7 (normal = Vellum-shade token) ----
+# 0 black — spec: ground
+palette = 0=#14161B
+# 1 red — spec: bearing bronze, Vellum shade
+palette = 1=#9C5530
+# 2 green — DERIVED. Toolpath has no green. Verdigris: what bronze corrodes to.
+palette = 2=#6E9B7A
+# 3 yellow — spec: temper amber
+palette = 3=#E0A036
+# 4 blue — spec: dykem, Vellum shade
+palette = 4=#35617F
+# 5 magenta — spec: anneal violet, Vellum shade
+palette = 5=#7E4A74
+# 6 cyan — spec: temper peacock
+palette = 6=#4E86B8
+# 7 white — spec: ink label
+palette = 7=#9AA1AD
+
+# ---- ANSI 8-15 (bright = Shop Floor-shade token) ----
+# 8 bright black — spec: line strong
+palette = 8=#3D4450
+# 9 bright red — spec: bearing bronze, Shop Floor shade
+palette = 9=#CE7A46
+# 10 bright green — DERIVED. Fresh patina.
+palette = 10=#8CBA98
+# 11 bright yellow — spec: temper straw
+palette = 11=#E9C86A
+# 12 bright blue — spec: dykem, Shop Floor shade
+palette = 12=#5B8FBF
+# 13 bright magenta — spec: anneal violet, Shop Floor shade
+palette = 13=#B87AAD
+# 14 bright cyan — DERIVED. Temper peacock, lightened.
+palette = 14=#6FAEC0
+# 15 bright white — spec: ink
+palette = 15=#E8EAEE
