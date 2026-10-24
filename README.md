@@ -27,7 +27,8 @@ home-manager.users.jeff = {
 ```
 
 Home-manager options: `livery.conductor.shade` picks `moffat` (default) or
-`stainless` for Ghostty. The theme folder lands at
+`stainless` for Ghostty and the JankyBorders window border
+(`~/.config/borders/bordersrc`). The theme folder lands at
 `~/.local/share/livery/conductor`.
 
 nix-darwin options: `livery.conductor.plash = true` installs Plash from the
@@ -55,6 +56,18 @@ open "plash:add?url=file://$HOME/.local/share/livery/conductor/live/board.html"
 ```
 
 It follows Light/Dark mode and pauses when the desktop is hidden.
+
+### AeroSpace window borders
+
+AeroSpace has no colors of its own; the theme reaches it through
+[JankyBorders](https://github.com/FelixKratz/JankyBorders), which outlines the
+focused window. Each shade has a `bordersrc` under `themes/*/borders/`:
+active is the theme's action color, inactive its strong line. Install one as
+`~/.config/borders/bordersrc` (executable) and start `borders` from AeroSpace:
+
+```toml
+after-startup-command = ['exec-and-forget borders']
+```
 
 ## Windows
 

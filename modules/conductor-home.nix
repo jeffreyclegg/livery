@@ -14,7 +14,7 @@ in
         "stainless"
       ];
       default = "moffat";
-      description = "Ghostty and bat shade. Both are installed either way.";
+      description = "Ghostty, bat and window-border shade. Both are installed either way.";
     };
   };
 
@@ -42,6 +42,11 @@ in
       "bat/themes/conductor-moffat.tmTheme".source = "${t}/editors/conductor-moffat.tmTheme";
       "bat/themes/conductor-stainless.tmTheme".source = "${t}/editors/conductor-stainless.tmTheme";
       "nvim/colors/conductor.lua".source = "${t}/editors/nvim/colors/conductor.lua";
+      # JankyBorders, AeroSpace's focused-window border. borders runs it.
+      "borders/bordersrc" = {
+        source = "${t}/borders/conductor-${cfg.shade}.bordersrc";
+        executable = true;
+      };
     };
 
     # Wallpapers, folder icons and the live board at a stable path:

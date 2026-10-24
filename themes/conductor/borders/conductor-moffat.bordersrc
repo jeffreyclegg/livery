@@ -1,0 +1,17 @@
+#!/bin/bash
+# Conductor · Moffat — JankyBorders (focused-window border for AeroSpace).
+# Install:  ~/.config/borders/bordersrc (executable). `borders` with no
+# arguments runs this file; re-running it restyles a running instance.
+# Colors are 0xAARRGGBB.
+
+options=(
+  style=round
+  width=5.0
+  hidpi=on
+  # spec: Sodium, the highlight color
+  active_color=0xffF2A33C
+  # spec: selection / bright black
+  inactive_color=0xff4D3532
+)
+
+borders "${options[@]}"

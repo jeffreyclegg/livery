@@ -1,0 +1,17 @@
+#!/bin/bash
+# Toolpath · Shop Floor — JankyBorders (focused-window border for AeroSpace).
+# Install:  ~/.config/borders/bordersrc (executable). `borders` with no
+# arguments runs this file; re-running it restyles a running instance.
+# Colors are 0xAARRGGBB.
+
+options=(
+  style=round
+  width=5.0
+  hidpi=on
+  # spec: bearing bronze, Shop Floor shade. The action color.
+  active_color=0xffCE7A46
+  # spec: line strong
+  inactive_color=0xff3D4450
+)
+
+borders "${options[@]}"
