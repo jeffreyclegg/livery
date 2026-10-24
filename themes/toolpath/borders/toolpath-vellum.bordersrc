@@ -1,0 +1,17 @@
+#!/bin/bash
+# Toolpath · Vellum — JankyBorders (focused-window border for AeroSpace).
+# Install:  ~/.config/borders/bordersrc (executable). `borders` with no
+# arguments runs this file; re-running it restyles a running instance.
+# Colors are 0xAARRGGBB.
+
+options=(
+  style=round
+  width=5.0
+  hidpi=on
+  # spec: bearing bronze, Vellum shade
+  active_color=0xff9C5530
+  # spec: line strong
+  inactive_color=0xffA9A396
+)
+
+borders "${options[@]}"

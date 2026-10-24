@@ -6,5 +6,6 @@
     {
       homeManagerModules.conductor = ./modules/conductor-home.nix;
       darwinModules.conductor = ./modules/conductor-darwin.nix;
+      darwinModules.toolpath = ./modules/toolpath-darwin.nix;
     };
 }

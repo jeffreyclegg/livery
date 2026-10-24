@@ -1,0 +1,248 @@
+# ============================================================
+# TOOLPATH · SHOP FLOOR — starship
+# Personal design system, Rev H. JDC.
+#
+#   ~/.config/starship.toml
+#
+# Requires a Nerd Font. JetBrains Mono Nerd Font is the system's mono face.
+#
+# THE CHEVRON is drawn in magenta #FF00FF as a SENTINEL. The Ghostty shader
+# (toolpath-grid-glyph.glsl) keys on magenta dominance and repaints it with a
+# vertical temper gradient. Outside Ghostty you'll see a magenta chevron —
+# that's the only cost, and it doubles as a signal the shader isn't loaded.
+#
+# On failure the chevron switches to bearing bronze, which the shader ignores.
+# So a successful command reads as temper and a failed one reads flat bronze.
+# ============================================================
+
+# ------------------------------------------------------------
+# LAYOUT
+#
+#   user  directory  | branch status  | versions  duration
+#   ❱
+#
+# ROOT-LEVEL KEYS MUST COME BEFORE ANY [table] HEADER. In TOML every key
+# after a header belongs to that table, so putting these below
+# [palettes.toolpath] silently made them palette entries.
+#
+# Separators are line_strong — structure, quiet. Directory is Dykem because
+# a path is a measurement of where you are.
+# ------------------------------------------------------------
+format = """
+$username\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$package\
+$nodejs$bun$deno$python$rust$golang$ruby$java$dotnet$swift$lua$zig\
+$docker_context\
+$kubernetes\
+$cmd_duration\
+$line_break\
+$character"""
+
+add_newline = true
+command_timeout = 1000
+
+palette = "toolpath"
+
+[palettes.toolpath]
+ground      = "#14161B"
+panel       = "#1C1F26"
+line        = "#2E333D"
+line_strong = "#3D4450"
+ink         = "#E8EAEE"
+ink2        = "#9AA1AD"
+ink3        = "#7E8694"
+dykem       = "#5B8FBF"   # structure, measurement
+dykem_light = "#8FB4D4"
+bronze      = "#CE7A46"   # action, emphasis
+violet      = "#B87AAD"   # rare accent
+verdigris   = "#6E9B7A"   # derived
+straw       = "#E9C86A"
+amber       = "#E0A036"
+sentinel    = "#FF00FF"   # repainted by the shader; never actually seen
+
+# ------------------------------------------------------------
+[username]
+show_always = true
+style_user = "ink2"
+style_root = "bronze"          # root is an action state, not a normal one
+format = "[$user]($style) "
+
+[hostname]
+ssh_only = true
+style = "violet"               # rare: you're somewhere else
+format = "[@$hostname]($style) "
+
+[directory]
+style = "dykem"
+# No truncation. A path is a measurement; a truncated one measures nothing.
+truncation_length = 0
+truncate_to_repo = false
+truncation_symbol = ""
+home_symbol = "~"
+read_only = " "
+read_only_style = "ink3"
+format = "[$path]($style)[$read_only]($read_only_style)"
+
+# ------------------------------------------------------------
+# GIT — branch is structure, dirty state is action
+# ------------------------------------------------------------
+[git_branch]
+symbol = " "
+style = "dykem_light"
+format = " [|]($style)[ ](line_strong)[$symbol$branch]($style)"
+truncation_length = 24
+truncation_symbol = "…"
+
+[git_state]
+style = "amber"
+format = " [\\($state( $progress_current/$progress_total)\\)]($style)"
+
+[git_status]
+style = "bronze"
+format = "[$all_status$ahead_behind]($style)"
+conflicted = " ="
+ahead = " ⇡${count}"
+behind = " ⇣${count}"
+diverged = " ⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = " ?${count}"
+stashed = " ≡${count}"
+modified = " !${count}"
+staged = " +${count}"
+renamed = " »${count}"
+deleted = " ✘${count}"
+
+# ------------------------------------------------------------
+# VERSIONS — ink2. Supplementary, present but not competing.
+# The ink rule holds: ink3, the faintest tier, labels nothing here.
+# ------------------------------------------------------------
+[package]
+symbol = "󰏗 "
+style = "ink2"
+format = " [|]($style)[ ](line_strong)[$symbol$version]($style)"
+display_private = true
+
+[nodejs]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[bun]
+symbol = "󱘗 "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[deno]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[python]
+symbol = " "
+style = "ink2"
+format = " [$symbol$pyenv_prefix($version)( \\($virtualenv\\))]($style)"
+
+[rust]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[golang]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[ruby]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[java]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[dotnet]
+symbol = " "
+style = "ink2"
+format = " [$symbol($tfm )]($style)"
+
+[swift]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[lua]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+[zig]
+symbol = " "
+style = "ink2"
+format = " [$symbol($version)]($style)"
+
+# ------------------------------------------------------------
+# CONTEXT — violet, because being pointed at a remote is rare and
+# worth noticing
+# ------------------------------------------------------------
+[docker_context]
+symbol = " "
+style = "violet"
+format = " [$symbol$context]($style)"
+only_with_files = true
+
+[kubernetes]
+symbol = "☸ "
+style = "violet"
+format = " [$symbol$context( \\($namespace\\))]($style)"
+# Off: it shows a cluster context regardless of directory, which reads as
+# noise. Set disabled = false and add detect_files if you want it scoped.
+disabled = true
+
+# ------------------------------------------------------------
+# DURATION — amber. A slow command is a measurement crossing a
+# threshold, which is warning-adjacent; amber is the warning colour
+# in the VS Code theme, so it's consistent.
+# ------------------------------------------------------------
+[cmd_duration]
+min_time = 2000
+style = "amber"
+format = " [took $duration]($style)"
+show_notifications = false
+
+# ------------------------------------------------------------
+# THE CHEVRON
+# ------------------------------------------------------------
+[character]
+success_symbol = "[❱](fg:sentinel)"
+error_symbol   = "[❱](fg:bronze)"
+vimcmd_symbol  = "[❰](fg:dykem)"
+vimcmd_replace_one_symbol = "[❰](fg:violet)"
+vimcmd_replace_symbol     = "[❰](fg:violet)"
+vimcmd_visual_symbol      = "[❰](fg:straw)"
+
+# ------------------------------------------------------------
+# OFF — noise for this setup
+# ------------------------------------------------------------
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[battery]
+disabled = true
+
+[time]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[shell]
+disabled = true
