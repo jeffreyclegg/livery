@@ -7,7 +7,7 @@ artifact side (CSS tokens, specimen pages, the theming skill) stays in
 | Theme | Mac (nix) | Windows | Omarchy | Wallpapers |
 |---|---|---|---|---|
 | Conductor | `homeManagerModules.conductor`, `darwinModules.conductor` | | | PNG, Dynamic Desktop HEIC, live board |
-| Toolpath | `themes/toolpath/macos` (scripts) | `themes/toolpath/windows` | `themes/toolpath/omarchy` | PNG, Dynamic Desktop HEIC |
+| Toolpath | `darwinModules.toolpath`, `themes/toolpath/macos` (scripts) | `themes/toolpath/windows` | `themes/toolpath/omarchy` | PNG, Dynamic Desktop HEIC |
 
 ## Mac, with nix-darwin and home-manager
 
@@ -34,6 +34,14 @@ Home-manager options: `livery.conductor.shade` picks `moffat` (default) or
 nix-darwin options: `livery.conductor.plash = true` installs Plash from the
 App Store (needs nix-darwin's homebrew module and an App Store sign-in).
 
+### Toolpath on a Mac without home-manager
+
+`darwinModules.toolpath` with `livery.toolpath.enable = true` links
+`themes/toolpath` to `/etc/livery/toolpath`. Dotfiles point each tool at a
+file there (Ghostty theme and shader, starship, tmux, borders, SketchyBar), so
+the assets live only here and a `darwin-rebuild` after a lock bump restyles
+everything.
+
 ### Wallpaper
 
 macOS has no setting nix can write for the wallpaper, so set it once:
@@ -57,16 +65,19 @@ open "plash:add?url=file://$HOME/.local/share/livery/conductor/live/board.html"
 
 It follows Light/Dark mode and pauses when the desktop is hidden.
 
-### AeroSpace window borders
+### AeroSpace: borders and bar
 
 AeroSpace has no colors of its own; the theme reaches it through
 [JankyBorders](https://github.com/FelixKratz/JankyBorders), which outlines the
-focused window. Each shade has a `bordersrc` under `themes/*/borders/`:
-active is the theme's action color, inactive its strong line. Install one as
-`~/.config/borders/bordersrc` (executable) and start `borders` from AeroSpace:
+focused window, and [SketchyBar](https://github.com/FelixKratz/SketchyBar),
+the workspace bar. Each shade has a `bordersrc` under `themes/*/borders/`
+(active is the theme's action color, inactive its strong line) and a colors
+file under `themes/*/sketchybar/` that a `sketchybarrc` sources. Install a
+`bordersrc` as `~/.config/borders/bordersrc` (executable) and start both from
+AeroSpace:
 
 ```toml
-after-startup-command = ['exec-and-forget borders']
+after-startup-command = ['exec-and-forget borders', 'exec-and-forget sketchybar']
 ```
 
 ## Windows
